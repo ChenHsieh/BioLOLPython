@@ -16,6 +16,8 @@ Popular LOLcats included **Grumpy Cat**, **Longcat**, and **Serious Cat**, and t
 
 Welcome to **bioLOLPython** — a meme-powered biological scripting language for coding with chaos and DNA 🧬.
 
+try it at [https://bioLOL.streamlit.app](https://bioLOL.streamlit.app)
+
 ## 🤖 bioLOLPython Extension
 
 This is a **meme-inspired biological scripting environment** built on top of the original LOLPython interpreter.  
