@@ -1,6 +1,6 @@
-# LOLPython!
+# bioLOLPython
 
-## 🤖 bioLOLCODE Extension
+## 🤖 bioLOLPython Extension
 
 This is a **meme-inspired biological scripting environment** built on top of the original LOLPython interpreter.  
 Vibe coded by **Chen Hsieh (2025)**, it updates LOLPython to Python 3 and adds support for biological sequence analysis using Biopython.
