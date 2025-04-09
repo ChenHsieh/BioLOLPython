@@ -1,5 +1,7 @@
 # bioLOLPython
 
+> analyze DNA in lolspeak
+
 ## 🐱 What is LOLCODE?
 
 LOLOLOL okay so listen up Gen Z 😹 — before TikTok memes and Discord kittens, there was a meme format called **lolcats**. These were internet-famous cat pictures with broken-English captions called **lolspeak** (or **catspeak**). Think:
