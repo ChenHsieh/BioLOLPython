@@ -30,13 +30,13 @@ KTHXBYE
 
 ### 🔬 Installation
 
-You can install it directly from GitHub:
+You can install bioLOLPython globally using [`pipx`](https://pypa.github.io/pipx/):
 
 ```
-pip install git+https://github.com/ChenHsieh/bioLOLPython.git
+pipx install git+https://github.com/ChenHsieh/bioLOLPython.git
 ```
 
-Or, clone it and install in editable mode for development:
+Or install locally with pip for development:
 
 ```
 git clone https://github.com/ChenHsieh/bioLOLPython.git
@@ -44,4 +44,10 @@ cd bioLOLPython
 pip install -e .
 ```
 
-> Requires Python ≥ 3.8 and `biopython`
+✅ After installation, you can run `.lolz` scripts like this:
+
+```
+bioLOL path/to/script.lolz
+```
+
+> Requires Python ≥ 3.8 and the dependencies `biopython` and `ply`
