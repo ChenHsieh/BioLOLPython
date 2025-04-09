@@ -5,7 +5,10 @@ description = "A meme-inspired biological language interpreter (bioLOLCODE)"
 authors = [{name="Chen Hsieh", email="chen.hsieh.uga@gmail.com"}]
 readme = "README.md"
 requires-python = ">=3.8"
-dependencies = ["biopython"]
+dependencies = [
+  "biopython",
+  "ply"
+]
 
 [project.scripts]
 bioLOL = "bioLOLPython.cli:main"
