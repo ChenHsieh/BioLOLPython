@@ -7,7 +7,7 @@ from contextlib import redirect_stdout
 # Styling
 st.set_page_config(
     page_title="bioLOL Webshell", 
-    layout="centered",
+    layout="wide",
     page_icon="😹"
 )
 st.markdown(
