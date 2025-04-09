@@ -40,7 +40,7 @@ st.markdown(
 st.title("😹 bioLOL Interpurr-ter")
 st.markdown("_Cuz sometimes your genes just need more memes._")
 
-col1, col2 = st.columns(2)
+col1, col2 = st.columns(2, gap="large", border=True)
 with col1:
     st.markdown("""
 
