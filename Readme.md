@@ -1,4 +1,4 @@
-
+<file name=0 path=/Users/chenhsieh/dev/2025/bioLOLCODE/BioLOLPython/Readme.md>
 
 # LOLPython!
 
@@ -61,6 +61,7 @@ It works by coverting the LOLPython code into Python. The converted Fibonacci in
 
 	# sys is used for COMPLAIN and ARGZ
 	import sys as _lol_sys
+	from bio.sequence import BioSeq
 
 	from datetime import date as DATE 
 
@@ -167,3 +168,4 @@ It works by coverting the LOLPython code into Python. The converted Fibonacci in
 
 
 
+</file>

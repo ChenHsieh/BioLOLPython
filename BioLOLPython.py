@@ -21,10 +21,12 @@ import sys
 import keyword
 import os
 import types
-from cStringIO import StringIO
+from io import StringIO
 from ply import *
+from bio.sequence import BioSeq
+import codecs
 
-
+bio_vars = {}  # Store sequences by name, e.g., BRRRR
 __NAME__ = "lolpython"
 __VERSION__ = "1.0"
 
@@ -89,13 +91,13 @@ def t_ASSIGN(t):  # cannot be a simple pattern because it must
 def t_SINGLE_QUOTE_STRING(t):
     r"'([^\\']+|\\'|\\\\)*'"  # I think this is right ...
     t.type = "STRING"
-    t.value = t.value[1:-1].decode("string-escape")
+    t.value = codecs.decode(t.value[1:-1], "unicode_escape")
     return t
 
 def t_DOUBLE_QUOTE_STRING(t):
     r'"([^\\"]+|\\"|\\\\)*"'
     t.type = "STRING"
-    t.value = t.value[1:-1].decode("string-escape")
+    t.value = codecs.decode(t.value[1:-1], "unicode_escape")
     return t
 
 # and LOL quoted strings!  They end with /LOL
@@ -410,7 +412,7 @@ def t_newline(t):
 
 def t_error(t):
     raise SyntaxError("Unknown symbol %r" % (t.value[0],))
-    print "Skipping", repr(t.value[0])
+    print("Skipping", repr(t.value[0]))
     t.lexer.skip(1)
 
 
@@ -598,7 +600,7 @@ class LOLLexer(object):
         self.token_stream = token_filter(self.lexer, add_endmarker)
     def token(self):
         try:
-            return self.token_stream.next()
+            return next(self.token_stream)
         except StopIteration:
             return None
 
@@ -695,7 +697,7 @@ def to_python(s):
             if t.value == "stdout":
                 write("print ")
             elif t.value == "stderr":
-                write("print >>_lol_sys.stderr, ")
+                write("print(..., file=_lol_sys.stderr) ")
             else:
                 raise AssertionError(t.value)
                 
@@ -725,10 +727,102 @@ def to_python(s):
 
 # API code for doing the translation and exec'ing the result
 
+def handle_line(line):
+    global bio_vars
+ 
+    if line.startswith("DNA GO"):
+        parts = line.split("ITZ")
+        name = parts[0].split()[-1]
+        seq = parts[1].strip().strip('"')
+        bio_vars[name] = BioSeq(seq)
+        return
+ 
+    if line.startswith("REVERSE THAT"):
+        parts = line.split()
+        # Assuming the variable name is the third token
+        name = parts[2]
+        bio_vars[name] = BioSeq(bio_vars[name].reverse_complement())
+        return
+ 
+    if line.startswith("GC BOMB"):
+        parts = line.split()
+        # Assuming the variable name is the third token
+        name = parts[2]
+        print(bio_vars[name].gc_content())
+        return
+ 
+    if line.startswith("VISIBLE"):
+        msg = line.replace("VISIBLE", "").strip()
+        import re
+        def repl(match):
+            var_name = match.group(1)
+            return str(bio_vars.get(var_name, match.group(0)))
+        msg = re.sub(r"\b(\w+)\b", repl, msg)
+        print(msg)
+        return
+
+    if line.startswith("TRANSCRIBE"):
+        parts = line.split()
+        name = parts[1]
+        bio_vars[name] = BioSeq(bio_vars[name].seq.transcribe())
+        return
+    
+    if line.startswith("TRANSLATE"):
+        parts = line.split()
+        name = parts[1]
+        bio_vars[name] = BioSeq(bio_vars[name].seq.translate())
+        return
+
+    if line.startswith("ALIGN"):
+        try:
+            from Bio.Align import PairwiseAligner
+            parts = line.split()
+            name1 = parts[1]
+            name2 = parts[3]
+            if name1 not in bio_vars or name2 not in bio_vars:
+                print("❌ One or both sequences not defined.")
+                return
+            seq1 = str(bio_vars[name1])
+            seq2 = str(bio_vars[name2])
+
+            aligner = PairwiseAligner()
+            aligner.mode = "global"
+            alignments = aligner.align(seq1, seq2)
+
+            if not alignments:
+                print("⚠️ No alignment found.")
+                return
+
+            print("🤝 alignment:\n")
+            print(alignments[0].format())  # nicely formatted output
+            score = alignments[0].score
+            print(f"🌈 ALINE SCOREZ: {score:.2f} 🔥 itz {('meh','ok','slay','SHEEESH')[min(int(score)//5,3)]}!!")
+        except Exception as e:
+            print(f"❌ Error during alignment: {e}")
+        return
+
+    if line.startswith("I CRAVE VIOLENCE"):
+        import random
+        parts = line.split()
+        name = parts[-1]
+        original = str(bio_vars[name])
+        mutated = list(original)
+        if not mutated:
+            print("⚠️ sequence is empty, nothing to mutate")
+            return
+        index = random.randint(0, len(mutated)-1)
+        bases = "ACGTU"
+        original_base = mutated[index]
+        choices = [b for b in bases if b != original_base.upper()]
+        mutated[index] = random.choice(choices)
+        bio_vars[name] = BioSeq("".join(mutated))
+        print(f"💣 mutated {name} at pos {index+1}: {original[index]} ➜ {mutated[index]}")
+        return
+ 
 def execfile(infile, module_name="__lolmain__"):
     "file, module_name -- exec the lolpython file in a newly created module"
     if not hasattr(infile, "read"):
-        s = open(infile).read()
+        s = open(infile, "r").read()
     else:
         s = infile.read()
     return execstring(s, module_name)
@@ -740,7 +834,7 @@ def execstring(s, module_name="__lolmain__"):
     # like __main__.  This fix is enough to fool unittest.
     m = types.ModuleType(module_name)
     sys.modules[module_name] = m
-    exec python_s in m.__dict__
+    exec(python_s, m.__dict__)
     return m
 
 def convert_file(infile, outfile):
@@ -756,10 +850,10 @@ def convert(filenames):
     else:
         for filename in filenames:
             base, ext = os.path.splitext(filename)
-            convert_file(open(filename), open(base+".py", "w"))
+            convert_file(open(filename, "r"), open(base+".py", "w"))
 
 def help():
-    print """convert and run a lolpython program
+    print("""convert and run a lolpython program
 Commands are:
     lolpython              Read a lolpython program from stdin and execute it
     lolpython --convert    Convert a lolpython program from stdin 
@@ -768,7 +862,7 @@ Commands are:
                            Convert a list of lolpython files into Python files
     lolpython filename [arg1 [arg2 ...]]
                            Run a lolpython program using optional arguments
-"""
+""")
 
 def main(argv):
     if len(argv) >= 2:
@@ -779,12 +873,17 @@ def main(argv):
             help()
             return
         if argv[1] == "--version":
-            print __NAME__ + " " + __VERSION__
+            print(__NAME__ + " " + __VERSION__)
             return
 
         # otherwise, run the lolpython program
         sys.argv = sys.argv[1:]
         filename = sys.argv[0]
+        if filename.endswith(".lolz"):
+            with open(filename, "r") as f:
+                for line in f:
+                    handle_line(line.strip())
+            return
         execfile(filename, "__main__")
     else:
         # commands from stdin
