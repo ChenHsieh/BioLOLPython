@@ -1,6 +1,18 @@
 #!/usr/bin/env python
 
 """
+# 
+# Additional features by Chen Hsieh (2025):
+# - Updated codebase to Python 3
+# - Meme-style biological sequence interpreter ("bioLOLCODE")
+# - Commands added: DNA GO ..., REVERSE THAT ..., GC BOMB ..., TRANSCRIBE, TRANSLATE
+# - Fun science ops: ALIGN A WIT B, I CRAVE VIOLENCE, etc.
+# - Uses Biopython under the hood
+# 
+# Inspired by LOLCODE and Gen Z chaos, powered by 🧬
+# 
+# Project repo: https://github.com/ChenHsieh/bioLOLPython
+
 
  Implementation of the LOLPython language.
  Converts from LOLPython to Python then optionally runs the Python.
@@ -13,7 +25,8 @@
  
  This software is in the public domain.  For details see:
  http://creativecommons.org/licenses/publicdomain/
- 
+
+
 """
 
 
@@ -727,9 +740,15 @@ def to_python(s):
 
 # API code for doing the translation and exec'ing the result
 
+#####################################
+# bioLOLCODE Extension Commands 🧬😹
+# Added by Chen Hsieh, 2025
+# - Meme-style DNA sequence tools
+#####################################
 def handle_line(line):
     global bio_vars
  
+    # 🍃 DNA declaration
     if line.startswith("DNA GO"):
         parts = line.split("ITZ")
         name = parts[0].split()[-1]
@@ -737,6 +756,7 @@ def handle_line(line):
         bio_vars[name] = BioSeq(seq)
         return
  
+    # 🔁 Reverse complement
     if line.startswith("REVERSE THAT"):
         parts = line.split()
         # Assuming the variable name is the third token
@@ -744,6 +764,7 @@ def handle_line(line):
         bio_vars[name] = BioSeq(bio_vars[name].reverse_complement())
         return
  
+    # 🔬 GC content
     if line.startswith("GC BOMB"):
         parts = line.split()
         # Assuming the variable name is the third token
@@ -751,6 +772,7 @@ def handle_line(line):
         print(bio_vars[name].gc_content())
         return
  
+    # 👁️ Output printing
     if line.startswith("VISIBLE"):
         msg = line.replace("VISIBLE", "").strip()
         import re
@@ -761,18 +783,21 @@ def handle_line(line):
         print(msg)
         return
 
+    # 💧 Transcribe DNA
     if line.startswith("TRANSCRIBE"):
         parts = line.split()
         name = parts[1]
         bio_vars[name] = BioSeq(bio_vars[name].seq.transcribe())
         return
     
+    # 🍖 Translate DNA to protein
     if line.startswith("TRANSLATE"):
         parts = line.split()
         name = parts[1]
         bio_vars[name] = BioSeq(bio_vars[name].seq.translate())
         return
 
+    # 🤝 Pairwise alignment
     if line.startswith("ALIGN"):
         try:
             from Bio.Align import PairwiseAligner
@@ -801,6 +826,7 @@ def handle_line(line):
             print(f"❌ Error during alignment: {e}")
         return
 
+    # 💣 Random mutation chaos
     if line.startswith("I CRAVE VIOLENCE"):
         import random
         parts = line.split()

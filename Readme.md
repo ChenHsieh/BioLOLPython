@@ -1,12 +1,44 @@
-<file name=0 path=/Users/chenhsieh/dev/2025/bioLOLCODE/BioLOLPython/Readme.md>
-
 # LOLPython!
 
+## 🤖 bioLOLCODE Extension
+
+This is a **meme-inspired biological scripting environment** built on top of the original LOLPython interpreter.  
+Vibe coded by **Chen Hsieh (2025)**, it updates LOLPython to Python 3 and adds support for biological sequence analysis using Biopython.
+
+### ✨ Added Features
+- ✅ `DNA GO <name> ITZ "SEQ"` — declare a DNA sequence
+- 🔁 `REVERSE THAT <name>` — reverse complement
+- 🔬 `GC BOMB <name>` — calculate GC content
+- 💧 `TRANSCRIBE <name>` — DNA → RNA
+- 🍖 `TRANSLATE <name>` — DNA → Protein
+- 💣 `I CRAVE VIOLENCE <name>` — introduce random mutation
+- 🤝 `ALIGN A WIT B` — global alignment (with meme-style scoring)
+- 👁️ `VISIBLE "..." + <name>` — print sequence variables in messages
+
+### 🚀 Example
+
+```
+HAI GENZOME 1.0
+
+DNA GO X ITZ "ATGCGTAC"
+GC BOMB X
+TRANSLATE X
+VISIBLE "💥 new protein: " + X
+
+KTHXBYE
+```
+
+### 🔬 Requirements
+
+```
+pip install biopython
+```
+
+---
 
 ## WHATZ LOLPython?
 
 Example code to generate all Fibonacci numbers less than a given value of N. Max value is 100 if N is not given on the command line. Idea derives from original lolcode implementation by Kieran O'Niell.
-
 
 	IN MAI datetime GIMME date LIKE DATE
 
@@ -33,10 +65,7 @@ Example code to generate all Fibonacci numbers less than a given value of N. Max
 	    GIMME EACH I IN UR FIBBING WIT N OK?
 		VISIBLE I
 
-
-
 and in action (you must first install the most excellent [PLY](http://www.dabeaz.com/ply/) package):
-
 
 	% python lolpython.py fib.lol 60
 	NOW IZ 2007-06-01
@@ -51,10 +80,7 @@ and in action (you must first install the most excellent [PLY](http://www.dabeaz
 	34
 	55
 	
-	
-	
 It works by coverting the LOLPython code into Python. The converted Fibonacci in Python is:
-
 
 	# LOLPython to Python converter version 1.0
 	# Written by Andrew Dalke, who should have been working on better things.
@@ -89,25 +115,20 @@ It works by coverting the LOLPython code into Python. The converted Fibonacci in
 		print I 
 
 	# The end.	
-	
-	
 
 ## Using LOLPython on the command line
-
 
 ### Run a program from stdin
 
 	% echo "VISIBLE 'HAI WORLD!'" | python lolpython.py
 	HAI WORLD!
 	%	
-	
-	
+
 ### Translate a program from stdin into Python on stdout
 
 	% echo "COMPLAIN 'HAI WORLD!'" | python lolpython.py --convert
 	# LOLPython to Python converter version 1.0
 	# Written by Andrew Dalke, who should have been working on better things.
-
 
 	# sys is used for COMPLAIN and ARGZ
 	import sys as _lol_sys
@@ -115,7 +136,6 @@ It works by coverting the LOLPython code into Python. The converted Fibonacci in
 	print >>_lol_sys.stderr, 'HAI WORLD!' 
 
 	# The end.
-
 
 ### Specify the LOLPython program filename on the command line
 
@@ -140,15 +160,12 @@ It works by coverting the LOLPython code into Python. The converted Fibonacci in
 	'B' 4
 	'C' 15
 
-
-
 ### Translate one or more LOLPython program files into Python files
 
 	% python lolpython.py --convert count_letters.lol
 	% cat count_letters.py 
 	# LOLPython to Python converter version 1.0
 	# Written by Andrew Dalke, who should have been working on better things.
-
 
 	# sys is used for COMPLAIN and ARGZ
 	import sys as _lol_sys
@@ -163,9 +180,3 @@ It works by coverting the LOLPython code into Python. The converted Fibonacci in
 	    print repr ( C ) , LETTERZ [ C ] 
 
 	# The end.
-
-
-
-
-
-</file>
