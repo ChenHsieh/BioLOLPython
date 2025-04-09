@@ -747,6 +747,10 @@ def to_python(s):
 #####################################
 def handle_line(line):
     global bio_vars
+
+    if line.startswith("HAI GENZOME"):
+        print("🐾 LOADING bioLOLCODE V1... LETZ GOOOO 💥")
+        return
  
     # 🍃 DNA declaration
     if line.startswith("DNA GO"):

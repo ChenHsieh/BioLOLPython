@@ -1,9 +1,25 @@
 # bioLOLPython
 
+## 🐱 What is LOLCODE?
+
+LOLOLOL okay so listen up Gen Z 😹 — before TikTok memes and Discord kittens, there was a meme format called **lolcats**. These were internet-famous cat pictures with broken-English captions called **lolspeak** (or **catspeak**). Think:
+  
+- “I CAN HAS CHEEZBURGER?”
+- “Y U NO FETCH?”
+- “I’M IN UR CODE, BREAKIN UR LOOPZ”
+
+From this glorious chaos, **LOLCODE** was born in 2007 by Adam Lindsay. It’s a programming language styled entirely in lolspeak. It’s not meant for serious production use — it’s a meme, a parody, and a challenge all in one.
+
+Popular LOLcats included **Grumpy Cat**, **Longcat**, and **Serious Cat**, and this language was their honorary coding tongue.
+
+**LOLPython** was later developed by Andrew Dalke as a LOLCODE-inspired interpreter that transpiles to Python. That’s what this project builds on — but with extra chromosomes: we’ve added **bioinformatics**.
+
+Welcome to **bioLOLPython** — a meme-powered biological scripting language for coding with chaos and DNA 🧬.
+
 ## 🤖 bioLOLPython Extension
 
 This is a **meme-inspired biological scripting environment** built on top of the original LOLPython interpreter.  
-Vibe coded by **Chen Hsieh (2025)**, it updates LOLPython to Python 3 and adds support for biological sequence analysis using Biopython.
+Vibe coded (sorry not sorry) by **Chen Hsieh (2025)**, it updates LOLPython to Python 3 and adds support for biological sequence analysis using Biopython.
 
 ### ✨ Added Features
 - ✅ `DNA GO <name> ITZ "SEQ"` — declare a DNA sequence
