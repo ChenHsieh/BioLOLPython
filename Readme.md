@@ -71,3 +71,12 @@ bioLOL path/to/script.lolz
 ```
 
 > Requires Python ≥ 3.8 and the dependencies `biopython` and `ply`
+
+## 🤖 AI Assistance
+This project was developed with assistance from ChatGPT to improve code structure, refine documentation, and troubleshoot issues. ChatGPT was used as a tool to enhance productivity and streamline the development process.
+
+## 📜 License
+This project is licensed under the MIT License.
+
+## 🤝 Contributing
+Contributions are welcome! Feel free to open issues and pull requests.
