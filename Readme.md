@@ -1,6 +1,8 @@
 # bioLOLPython
 
-> analyze DNA in lolspeak
+*Analyze DNA in lolspeak*
+
+![demo](demo.gif)
 
 ## 🐱 What is LOLCODE?
 
