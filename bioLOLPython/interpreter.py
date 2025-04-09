@@ -36,7 +36,7 @@ import os
 import types
 from io import StringIO
 from ply import *
-from bio.sequence import BioSeq
+from bioLOLPython.bio.sequence import BioSeq
 import codecs
 
 bio_vars = {}  # Store sequences by name, e.g., BRRRR

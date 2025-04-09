@@ -1,0 +1,39 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Packaging
+build/
+dist/
+*.egg-info/
+*.egg/
+*.whl
+
+# Installer metadata
+*.manifest
+*.spec
+
+# Pyproject / editable installs
+*.egg-info/
+pip-wheel-metadata/
+
+# VS Code and JetBrains
+.vscode/
+.idea/
+
+# OS crap
+.DS_Store
+Thumbs.db
+
+# Conda / virtualenvs (optional, but recommended)
+env/
+.venv/
+*.conda/
+*.mamba/
+
+# Jupyter Notebook checkpoints (if any)
+.ipynb_checkpoints/
+
+# Logs or debug
+*.log
